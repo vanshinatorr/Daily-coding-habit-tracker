@@ -1,7 +1,12 @@
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./app/routes"; // Jo router humne abhi banaya
+import "./styles/index.css";
 
-  import { createRoot } from "react-dom/client";
-  import App from "./app/App.tsx";
-  import "./styles/index.css";
+const rootElement = document.getElementById("root");
 
-  createRoot(document.getElementById("root")!).render(<App />);
-  
+if (rootElement) {
+  createRoot(rootElement).render(
+    <RouterProvider router={router} />
+  );
+}
