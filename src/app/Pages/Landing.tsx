@@ -38,9 +38,9 @@ export function Landing() {
               <a href="#leaderboard" className="text-sm text-zinc-400 hover:text-white transition-colors">
                 Leaderboard
               </a>
-              <a href="#pricing" className="text-sm text-zinc-400 hover:text-white transition-colors">
-                Pricing
-              </a>
+       <Link to="/pricing" className="text-sm text-zinc-400 hover:text-white transition-colors">
+           Pricing
+          </Link>
             </div>
 
             {/* CTA Buttons */}
@@ -75,9 +75,9 @@ export function Landing() {
                 <a href="#leaderboard" className="text-sm text-zinc-400 hover:text-white transition-colors py-2">
                   Leaderboard
                 </a>
-                <a href="#pricing" className="text-sm text-zinc-400 hover:text-white transition-colors py-2">
+           <Link to="/pricing" className="text-sm text-zinc-400 hover:text-white transition-colors py-2">
                   Pricing
-                </a>
+               </Link>
                 <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
                   <Link to="/login" className="px-5 py-2.5 text-sm text-zinc-300 hover:text-white transition-colors text-left">
                     Sign In
@@ -123,18 +123,26 @@ export function Landing() {
             </div>
 
             {/* Product Links */}
-            <div>
-              <h4 className="font-semibold mb-4 text-sm text-zinc-300">Product</h4>
-              <ul className="space-y-3">
-                {["Features", "Pricing", "Roadmap", "Changelog", "API"].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-sm text-zinc-500 hover:text-violet-400 transition-colors">
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+{/* Product Links */}
+<div>
+  <h4 className="font-semibold mb-4 text-sm text-zinc-300">Product</h4>
+  <ul className="space-y-3">
+    {["Features", "Roadmap", "Changelog", "API"].map((item) => (
+      <li key={item}>
+        <a href="#" className="text-sm text-zinc-500 hover:text-violet-400 transition-colors">
+          {item}
+        </a>
+      </li>
+    ))}
+    <li>
+      <Link to="/pricing" className="text-sm text-zinc-500 hover:text-violet-400 transition-colors">
+        Pricing
+      </Link>
+    </li>
+  </ul>
+</div>
+
 
             {/* Resources Links */}
             <div>

@@ -1,5 +1,5 @@
 import { Code2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -7,22 +7,20 @@ import { Label } from "../components/ui/label";
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
     console.log("Login:", { email, password });
+    navigate("/dashboard");
   };
 
   return (
     <div className="min-h-screen text-white relative overflow-hidden flex items-center justify-center px-4" style={{ backgroundColor: '#0D0D0F' }}>
-      {/* Background Glowing Orbs */}
       <div className="absolute top-20 left-10 w-96 h-96 bg-violet-500/20 rounded-full blur-[120px] animate-pulse" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
       
-      {/* Content */}
       <div className="relative z-10 w-full max-w-md animate-fadeInUp">
-        {/* Logo */}
         <Link to="/" className="flex items-center justify-center gap-3 mb-12">
           <div className="w-12 h-12 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/30">
             <Code2 className="w-7 h-7 text-white" />
@@ -32,22 +30,16 @@ export function Login() {
           </span>
         </Link>
 
-        {/* Glassmorphism Card */}
         <div className="relative">
-          {/* Card Glow Effect */}
           <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-emerald-500/20 rounded-2xl blur-xl" />
           
-          {/* Card */}
           <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
-            {/* Heading */}
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold mb-2">Welcome Back 🔥</h1>
               <p className="text-zinc-400 text-sm">Continue your coding streak</p>
             </div>
 
-            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Email Field */}
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-sm text-zinc-300">
                   Email
@@ -63,7 +55,6 @@ export function Login() {
                 />
               </div>
 
-              {/* Password Field */}
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-sm text-zinc-300">
                   Password
@@ -79,14 +70,12 @@ export function Login() {
                 />
               </div>
 
-              {/* Forgot Password Link */}
               <div className="text-right">
                 <a href="#" className="text-sm text-violet-400 hover:text-violet-300 transition-colors">
                   Forgot Password?
                 </a>
               </div>
 
-              {/* Login Button */}
               <button
                 type="submit"
                 className="w-full py-3 bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-400 hover:to-purple-500 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50"
@@ -95,7 +84,6 @@ export function Login() {
               </button>
             </form>
 
-            {/* Divider */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-white/10" />
@@ -105,7 +93,6 @@ export function Login() {
               </div>
             </div>
 
-            {/* Sign Up Link */}
             <p className="text-center text-sm text-zinc-400">
               Don't have an account?{" "}
               <Link to="/signup" className="text-violet-400 hover:text-violet-300 font-semibold transition-colors">
@@ -115,7 +102,6 @@ export function Login() {
           </div>
         </div>
 
-        {/* Back to Home Link */}
         <div className="text-center mt-6">
           <Link to="/" className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
             ← Back to Home

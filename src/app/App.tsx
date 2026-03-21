@@ -1,19 +1,6 @@
-import { createBrowserRouter } from "react-router-dom";
-import { Landing } from "./Pages/Landing";
-import { Login } from "./Pages/Login";
-import { Signup } from "./Pages/Signup";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    Component: Landing,
-  },
-  {
-    path: "/login",
-    Component: Login,
-  },
-  {
-    path: "/signup",
-    Component: Signup,
-  },
-]);
+export default function App() {
+  return <RouterProvider router={router} />;
+}
