@@ -5,11 +5,17 @@ import { Input } from "../components/ui/input";
 
 export function Dashboard() {
   const [solutionLink, setSolutionLink] = useState("");
+  const [hasActiveChallenge, setHasActiveChallenge] = useState(false);
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [joinCode, setJoinCode] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Solution submitted:", solutionLink);
   };
+
+
+
 
   // Mock data
   const currentStreak = 47;
@@ -25,6 +31,8 @@ export function Dashboard() {
   // Calendar data for March 2026
   const currentMonth = "March 2026";
   const daysInMonth = 31;
+
+
   const firstDayOfMonth = 0; // Sunday
   
   const calendarDays = Array.from({ length: daysInMonth }, (_, i) => {
@@ -77,15 +85,18 @@ export function Dashboard() {
             {/* Title */}
             <h1 className="absolute left-1/2 -translate-x-1/2 text-lg sm:text-xl font-semibold">Dashboard</h1>
 
-            {/* User Controls */}
+  
+  {/* User Controls */}
             <div className="flex items-center gap-3">
-              <button className="relative p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <Bell className="w-5 h-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-violet-500 rounded-full"></span>
-              </button>
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center font-semibold text-sm">
-                YU
-              </div>
+<Link to="/notifications" className="relative p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+<Bell className="w-5 h-5" />
+<span className="absolute top-1 right-1 w-2 h-2 bg-violet-500 rounded-full"></span>
+</Link>
+<Link to="/profile" className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center font-semibold text-sm">
+  YU
+</Link>
+
+
             </div>
           </div>
         </div>
@@ -298,127 +309,199 @@ export function Dashboard() {
               </div>
             </div>
 
-            {/* Friend Challenge Card */}
+
+
+
+
+
+{/* Friend Challenge Card */}
+<div className="relative">
+<div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-50" />
+<div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+<h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+<Users className="w-5 h-5" />
+      Friend Challenge
+</h2>
+{hasActiveChallenge ? (
+// State 2 — Active Challenge
+<div className="space-y-4">
+<div className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10">
+<div className="flex items-center gap-3">
+<div className="w-10 h-10 bg-gradient-to-br from-violet-400 to-purple-600 rounded-full flex items-center justify-center font-semibold text-sm">
+{friendChallenge.friendAvatar}
+</div>
+<div>
+<div className="font-semibold">{friendChallenge.friendName}</div>
+<div className="text-xs text-zinc-400">{friendChallenge.daysRemaining} days left</div>
+</div>
+</div>
+<span className="text-xs font-semibold text-red-400 bg-red-500/10 px-2 py-1 rounded-full">
+            🔴 Behind
+</span>
+</div>
+<div className="space-y-3">
+<div>
+<div className="flex justify-between text-sm mb-2">
+<span className="text-zinc-400">You</span>
+<span className="font-semibold">{friendChallenge.yourProgress}/{friendChallenge.totalDays} days</span>
+</div>
+<div className="h-2 bg-white/5 rounded-full overflow-hidden">
+<div
+className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full"
+style={{ width: `${(friendChallenge.yourProgress / friendChallenge.totalDays) * 100}%` }}
+/>
+</div>
+</div>
+<div>
+<div className="flex justify-between text-sm mb-2">
+<span className="text-zinc-400">{friendChallenge.friendName}</span>
+<span className="font-semibold">{friendChallenge.friendProgress}/{friendChallenge.totalDays} days</span>
+</div>
+<div className="h-2 bg-white/5 rounded-full overflow-hidden">
+<div
+className="h-full bg-gradient-to-r from-violet-500 to-purple-400 rounded-full"
+style={{ width: `${(friendChallenge.friendProgress / friendChallenge.totalDays) * 100}%` }}
+/>
+</div>
+</div>
+</div>
+</div>
+    ) : (
+
+
+
+      // State 1 — No Active Challenge
+<div className="space-y-4">
+<div className="text-center py-4">
+<div className="text-4xl mb-3">🤝</div>
+<p className="text-zinc-400 text-sm mb-1">No active challenge</p>
+<p className="text-zinc-500 text-xs">Challenge a friend and put your streak to the test!</p>
+</div>
+<Link
+to="/create-challenge"
+className="block w-full py-3 text-center bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-400 hover:to-purple-500 text-white font-semibold rounded-lg transition-all duration-300 text-sm"
+>
+  + Create Challenge
+</Link>
+<button
+  onClick={() => setShowJoinModal(true)}
+  className="w-full py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold rounded-lg transition-all duration-300 text-sm"
+>
+  Join with Code
+</button>
+<p className="text-center text-xs text-zinc-500">Pro feature • ₹19 entry + stake</p>
+</div>
+    )}
+</div>
+</div>
+
+
+{/* Leaderboard Preview */}
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-50" />
-              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  Friend Challenge
-                </h2>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-violet-400 to-purple-600 rounded-full flex items-center justify-center font-semibold text-sm">
-                        {friendChallenge.friendAvatar}
-                      </div>
-                      <div>
-                        <div className="font-semibold">{friendChallenge.friendName}</div>
-                        <div className="text-xs text-zinc-400">{friendChallenge.daysRemaining} days left</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    {/* Your Progress */}
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-zinc-400">You</span>
-                        <span className="font-semibold">{friendChallenge.yourProgress} days</span>
-                      </div>
-                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full"
-                          style={{ width: `${(friendChallenge.yourProgress / friendChallenge.totalDays) * 100}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Friend Progress */}
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-zinc-400">{friendChallenge.friendName}</span>
-                        <span className="font-semibold">{friendChallenge.friendProgress} days</span>
-                      </div>
-                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-violet-500 to-purple-400 rounded-full"
-                          style={{ width: `${(friendChallenge.friendProgress / friendChallenge.totalDays) * 100}%` }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Leaderboard Preview */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-violet-500/20 rounded-2xl blur-xl opacity-50" />
-              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold flex items-center gap-2">
-                    <Award className="w-5 h-5" />
+<div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-violet-500/20 rounded-2xl blur-xl opacity-50" />
+<div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6">
+<div className="flex items-center justify-between mb-6">
+<h2 className="text-xl font-bold flex items-center gap-2">
+<Award className="w-5 h-5" />
                     Leaderboard
-                  </h2>
-                  <button className="text-sm text-violet-400 hover:text-violet-300 flex items-center gap-1">
+</h2>
+<Link to="/leaderboard" className="text-sm text-violet-400 hover:text-violet-300 flex items-center gap-1">
                     View All
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-
-                <div className="space-y-3">
-                  {leaderboard.map((user) => (
-                    <div
-                      key={user.rank}
-                      className={`
+<ChevronRight className="w-4 h-4" />
+</Link>
+</div>
+<div className="space-y-3">
+{leaderboard.map((user) => (
+<div
+key={user.rank}
+className={`
                         flex items-center justify-between p-3 rounded-lg border transition-all
-                        ${user.isCurrentUser 
-                          ? 'bg-violet-500/10 border-violet-500/30 shadow-lg shadow-violet-500/10' 
-                          : 'bg-white/5 border-white/10 hover:border-white/20'
+${user.isCurrentUser 
+? 'bg-violet-500/10 border-violet-500/30 shadow-lg shadow-violet-500/10' 
+: 'bg-white/5 border-white/10 hover:border-white/20'
                         }
                       `}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`
+>
+<div className="flex items-center gap-3">
+<div className={`
                           w-8 h-8 flex items-center justify-center font-bold text-sm rounded-lg
-                          ${user.rank === 1 ? 'bg-yellow-500/20 text-yellow-400' : ''}
-                          ${user.rank === 2 ? 'bg-zinc-400/20 text-zinc-300' : ''}
-                          ${user.rank === 3 ? 'bg-orange-500/20 text-orange-400' : ''}
-                          ${user.rank > 3 ? 'bg-white/10 text-zinc-400' : ''}
+${user.rank === 1 ? 'bg-yellow-500/20 text-yellow-400' : ''}
+${user.rank === 2 ? 'bg-zinc-400/20 text-zinc-300' : ''}
+${user.rank === 3 ? 'bg-orange-500/20 text-orange-400' : ''}
+${user.rank > 3 ? 'bg-white/10 text-zinc-400' : ''}
                         `}>
-                          {user.rank}
-                        </div>
-                        <div className={`
+{user.rank}
+</div>
+<div className={`
                           w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm
-                          ${user.isCurrentUser 
-                            ? 'bg-gradient-to-br from-emerald-400 to-emerald-600' 
-                            : 'bg-gradient-to-br from-violet-400 to-purple-600'
+${user.isCurrentUser 
+? 'bg-gradient-to-br from-emerald-400 to-emerald-600' 
+: 'bg-gradient-to-br from-violet-400 to-purple-600'
                           }
                         `}>
-                          {user.avatar}
-                        </div>
-                        <div>
-                          <div className={`font-semibold ${user.isCurrentUser ? 'text-violet-300' : ''}`}>
-                            {user.name}
-                          </div>
-                          <div className="text-xs text-zinc-400">🔥 {user.streak} day streak</div>
-                        </div>
-                      </div>
-                      {user.rank <= 3 && (
-                        <div className="text-2xl">
-                          {user.rank === 1 ? '🥇' : user.rank === 2 ? '🥈' : '🥉'}
-                        </div>
+{user.avatar}
+</div>
+<div>
+<div className={`font-semibold ${user.isCurrentUser ? 'text-violet-300' : ''}`}>
+{user.name}
+</div>
+<div className="text-xs text-zinc-400">🔥 {user.streak} day streak</div>
+</div>
+</div>
+{user.rank <= 3 && (
+<div className="text-2xl">
+{user.rank === 1 ? '🥇' : user.rank === 2 ? '🥈' : '🥉'}
+</div>
                       )}
-                    </div>
+</div>
                   ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+     {/* Join with Code Modal */}
+      {showJoinModal && (
+<div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+<div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowJoinModal(false)} />
+<div className="relative bg-[#1a1a2e] border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
+<h2 className="text-xl font-bold mb-2">Join a Challenge</h2>
+<p className="text-zinc-400 text-sm mb-6">Enter the invite code shared by your friend</p>
+<div className="mb-4">
+<label className="block text-sm text-zinc-400 mb-2">Invite Code</label>
+<input
+type="text"
+placeholder="e.g. CP-X7K2M"
+value={joinCode}
+onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
+className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-zinc-600 focus:outline-none focus:border-violet-500/50 font-mono tracking-widest text-center text-lg uppercase"
+/>
+</div>
+<div className="flex gap-3">
+<button
+onClick={() => setShowJoinModal(false)}
+className="flex-1 py-3 rounded-xl font-semibold bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-sm"
+>
+                Cancel
+</button>
+<Link
+  to={`/join-challenge/${joinCode}`}
+  className={`flex-1 py-3 rounded-xl font-semibold transition-all text-sm text-center
+    ${joinCode.length >= 5
+      ? "bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-400 hover:to-purple-500 shadow-lg shadow-violet-500/30 pointer-events-auto"
+      : "bg-white/5 text-zinc-600 pointer-events-none"
+    }`}
+>
+  Join Challenge
+</Link>
+</div>
+</div>
+</div>
+      )}
+</main>
+</div>
   );
 }
