@@ -284,10 +284,7 @@ export function CreateChallenge() {
         {screen === "generated" && (
           <div className="space-y-6">
             <div className="text-center mb-8">
-
-<div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/30">
-  <CheckCircle className="w-8 h-8 text-white" />
-</div>
+              <div className="text-6xl mb-4">🎉</div>
               <h1 className="text-3xl font-bold mb-2">Challenge Created!</h1>
               <p className="text-zinc-400 text-sm">Share the invite code with your friend to start</p>
             </div>
